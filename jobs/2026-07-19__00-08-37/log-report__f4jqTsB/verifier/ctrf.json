@@ -1,0 +1,56 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 0,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1784434131.0752246,
+            "stop": 1784434131.1284962
+        },
+        "tests": [
+            {
+                "name": "test_outputs.py::test_report_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0024684689997229725,
+                "start": 1784434131.0878713,
+                "stop": 1784434131.1157901,
+                "retries": 0,
+                "file_path": "test_outputs.py",
+                "trace": "def test_report_exists():\n        \"\"\"Verifies the instruction.md criterion: the JSON report is created at /app/report.json.\"\"\"\n>       assert Path(\"/app/report.json\").exists(), \"report.json was not created\"\nE       AssertionError: report.json was not created\nE       assert False\nE        +  where False = exists()\nE        +    where exists = PosixPath('/app/report.json').exists\nE        +      where PosixPath('/app/report.json') = Path('/app/report.json')\n\n/tests/test_outputs.py:8: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_outputs.py::test_report_valid_json",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0007947180001792731,
+                "start": 1784434131.1161249,
+                "stop": 1784434131.121606,
+                "retries": 0,
+                "file_path": "test_outputs.py",
+                "trace": "def test_report_valid_json():\n        \"\"\"Verifies the instruction.md criterion: the report must be a valid JSON object.\"\"\"\n>       with open(\"/app/report.json\") as f:\n             ^^^^^^^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/app/report.json'\n\n/tests/test_outputs.py:13: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_outputs.py::test_report_correct_values",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0010522570000830456,
+                "start": 1784434131.1219273,
+                "stop": 1784434131.1272187,
+                "retries": 0,
+                "file_path": "test_outputs.py",
+                "trace": "def test_report_correct_values():\n        \"\"\"Verifies the instruction.md criterion: total_requests, unique_ips, and top_path are correctly calculated from /app/access.log.\"\"\"\n        paths, ips, total = Counter(), set(), 0\n    \n        with open(\"/app/access.log\") as f:\n            for line in f:\n                line = line.strip()\n                if not line:\n                    continue\n    \n                total += 1\n                ips.add(line.split()[0])\n    \n                match = re.search(r'\"(?:GET|POST|PUT|DELETE|HEAD|PATCH) (\\S+) ', line)\n                if match:\n                    paths[match.group(1)] += 1\n    \n        expected = {\n            \"total_requests\": total,\n            \"unique_ips\": len(ips),\n            \"top_path\": paths.most_common(1)[0][0],\n        }\n    \n>       with open(\"/app/report.json\") as f:\n             ^^^^^^^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/app/report.json'\n\n/tests/test_outputs.py:42: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}
