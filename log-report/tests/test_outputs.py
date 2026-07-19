@@ -1,5 +1,4 @@
-import json
-import re
+import json, re
 from collections import Counter
 from pathlib import Path
 
