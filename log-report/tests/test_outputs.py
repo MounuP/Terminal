@@ -1,14 +1,16 @@
-import json, re
+import json
+import re
 from collections import Counter
 from pathlib import Path
 
+
 def test_report_exists():
-    """The agent produced a report file."""
+    """Verifies the instruction.md criterion: the JSON report is created at /app/report.json."""
     assert Path("/app/report.json").exists(), "report.json was not created"
 
 
 def test_report_valid_json():
-    """Verifies the instruction.md criteria: the report must be a valid JSON object."""
+    """Verifies the instruction.md criterion: the report must be a valid JSON object."""
     with open("/app/report.json") as f:
         report = json.load(f)
 
@@ -16,8 +18,8 @@ def test_report_valid_json():
 
 
 def test_report_correct_values():
-    """Verifies the instruction.md criteria: total_requests, unique_ips, and top_path are correctly calculated from /app/access.log."""
-paths, ips, total = Counter(), set(), 0
+    """Verifies the instruction.md criterion: total_requests, unique_ips, and top_path are correctly calculated from /app/access.log."""
+    paths, ips, total = Counter(), set(), 0
 
     with open("/app/access.log") as f:
         for line in f:
